@@ -1,7 +1,7 @@
 # 🛡️ Ammu-1.0-OffOnTopic: Lightweight Efficient Off On Topic Guardrail Models
 
 <p align="center">
-  <a href="https://huggingface.co/collections/kalyan-ks/ammu-10-offontopic-guardrail"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model%20Collection-yellow.svg" alt="HuggingFace Collection"></a>
+  <a href="https://huggingface.co/collections/kalyan-ks/ammu-10-off-on-topic-guardrail"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model%20Collection-yellow.svg" alt="HuggingFace Collection"></a>
   <a href="https://huggingface.co/datasets/kalyan-ks/off-on-topic-guardrail"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Benchmark%20Dataset-blue.svg" alt="HuggingFace Dataset"></a>
   <a href="https://huggingface.co/spaces"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Live%20Demo-orange.svg" alt="Gradio Demo"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
