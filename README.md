@@ -178,7 +178,7 @@ The benchmark explicitly tests and overcomes shallow lexical shortcuts:
 
 ## 💻 Interactive Gradio Demo
 
-An interactive Gradio application is included in [`app.py`](./app.py) featuring:
+An interactive Gradio application is included in [`app.py`](./assets/app.py) featuring:
 - Real-time paired cross-encoder classification with live character and token monitoring.
 - Interactive model switching across all 4 parameter scales (`base`, `small`, `tiny`, `nano`).
 - ZeroGPU compatibility for Hugging Face Spaces.
@@ -188,8 +188,8 @@ To run locally:
 ```bash
 git clone https://github.com/KalyanKS-NLP/ammu-off-on-topic-guardrail-models.git
 cd ammu-off-on-topic-guardrail-models
-pip install -r requirements.txt
-python app.py
+pip install -r assets/requirements.txt
+python assets/app.py
 ```
 
 ---
@@ -197,7 +197,7 @@ python app.py
 ## 🔬 Reproducing the Benchmark
 
 You can reproduce the evaluation benchmarks against the holdout test set using the standalone notebook:
-- [`Evaluation Metrics Encoder Models.ipynb`](./Evaluation%20Metrics%20Encoder%20Models.ipynb)
+- [`Evaluation Metrics Encoder Models.ipynb`](./assets/Evaluation%20Metrics%20Encoder%20Models.ipynb)
 
 This loads the test split directly from Hugging Face Hub and executes deterministic evaluation in FP32 precision across all four encoder models.
 
