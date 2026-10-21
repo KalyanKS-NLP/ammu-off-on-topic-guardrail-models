@@ -74,8 +74,6 @@ Comparison of Pareto-optimal quantized models across the four Ammu 1.0 architect
 | [Ammu-1.0-Base-150M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Base-150M-ONNX-INT8) | Dynamic INT8 + Selective Head FP32 | 150M | 256.0 MB | 95.81 ms | 7.5 q/s | 89.24 | **89.64** |
 | [Ammu-1.0-Tiny-32M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Tiny-32M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 32M | 90.3 MB | 31.50 ms | 35.9 q/s | 86.80 | 87.03 |
 | [Ammu-1.0-Nano-17M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Nano-17M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 17M | 55.0 MB | 11.88 ms | 88.7 q/s | 84.91 | 85.26 |
-| [Ammu-1.0-Small-68M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Small-68M-ONNX-INT8) | Dynamic INT8 (Per-Channel) | 68M | 140.1 MB | 70.82 ms | 11.1 q/s | 40.77 | 41.85 |
-
 
 ### Key Highlights
 - **Substantially Outperforms Frontier LLMs**: `Ammu-1.0-base` achieves **91.56%** Macro-F1, outperforming DeepSeek V4 Flash 0731 by **+9.61%** and GPT-6-luna by **+12.44%**.
