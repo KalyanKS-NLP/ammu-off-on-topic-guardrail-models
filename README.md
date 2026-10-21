@@ -52,16 +52,30 @@ In production AI assistants and enterprise agents, relying on generation LLMs to
 
 Evaluated on the curated holdout benchmark test set of **4,008 balanced instances** from [`kalyan-ks/off-on-topic-guardrail`](https://huggingface.co/datasets/kalyan-ks/off-on-topic-guardrail) across three difficulty tiers (*Easy*, *Medium*, *Hard*):
 
+### **Full Precision Models**
+
 | Model | Architecture | Params | Easy F1 (%) | Medium F1 (%) | Hard F1 (%) | Overall Macro-F1 (%) |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
-| `GPT-6-luna` | LLM API | - | 95.39 | 71.63 | 79.12 | **79.12** |
-| `DeepSeek V4 Flash 0731` | LLM API | - | 96.83 | 75.88 | 81.42 | **81.95** |
-| **Ammu-1.0-OffOnTopic-Guardrail-nano**<sup>*</sup> | ModernBERT | 17M | 91.77 | 86.55 | 86.39 | **87.31** |
-| **Ammu-1.0-OffOnTopic-Guardrail-small** | ModernBERT | 68M | 96.37 | 88.93 | 89.44 | **90.35** |
-| **Ammu-1.0-OffOnTopic-Guardrail-tiny**<sup>*</sup> | ModernBERT | 32M | 95.74 | 89.66 | 90.19 | **90.87** |
-| **Ammu-1.0-OffOnTopic-Guardrail-base** | ModernBERT | 150M | **97.15** | **90.71** | **90.30** | **91.56** |
+| `GPT-6-luna` | LLM API | - | 95.39 | 71.63 | 79.12 | 79.12 |
+| `DeepSeek V4 Flash 0731` | LLM API | - | 96.83 | 75.88 | 81.42 | 81.95 |
+| [Ammu-1.0-OffOnTopic-Guardrail-nano](https://huggingface.co/kalyan-ks/Ammu-1.0-FactCheck-Need-nano)<sup>*</sup> | ModernBERT | 17M | 91.77 | 86.55 | 86.39 | 87.31 |
+| [Ammu-1.0-OffOnTopic-Guardrail-small](https://huggingface.co/kalyan-ks/Ammu-1.0-FactCheck-Need-small) | ModernBERT | 68M | 96.37 | 88.93 | 89.44 | 90.35 |
+| [Ammu-1.0-OffOnTopic-Guardrail-tiny](https://huggingface.co/kalyan-ks/Ammu-1.0-FactCheck-Need-tiny)<sup>*</sup> | ModernBERT | 32M | 95.74 | 89.66 | 90.19 | 90.87 |
+| [Ammu-1.0-OffOnTopic-Guardrail-base](https://huggingface.co/kalyan-ks/Ammu-1.0-FactCheck-Need-base) | ModernBERT | 150M | **97.15** | **90.71** | **90.30** | **91.56** |
 
 **Note**: \* — Tiny (32M) and Nano (17M) models are trained using knowledge distillation with `Ammu-1.0-OffOnTopic-Guardrail-base` as the teacher model.
+
+### **Quantized Models**
+
+Comparison of Pareto-optimal quantized models across the four Ammu 1.0 architectural tiers:
+
+| Model | Quantization Approach | Parameters | Disk Footprint | P50 Latency (CPU) | Throughput | Hard Macro-F1 (%) | Overall Macro-F1 (%) |
+|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| [Ammu-1.0-Base-150M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Base-150M-ONNX-INT8) | Dynamic INT8 + Selective Head FP32 | 150M | 256.0 MB | 95.81 ms | 7.5 q/s | 89.24 | **89.64** |
+| [Ammu-1.0-Tiny-32M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Tiny-32M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 32M | 90.3 MB | 31.50 ms | 35.9 q/s | 86.80 | 87.03 |
+| [Ammu-1.0-Nano-17M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Nano-17M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 17M | 55.0 MB | 11.88 ms | 88.7 q/s | 84.91 | 85.26 |
+| [Ammu-1.0-Small-68M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Small-68M-ONNX-INT8) | Dynamic INT8 (Per-Channel) | 68M | 140.1 MB | 70.82 ms | 11.1 q/s | 40.77 | 41.85 |
+
 
 ### Key Highlights
 - **Substantially Outperforms Frontier LLMs**: `Ammu-1.0-base` achieves **91.56%** Macro-F1, outperforming DeepSeek V4 Flash 0731 by **+9.61%** and GPT-6-luna by **+12.44%**.
