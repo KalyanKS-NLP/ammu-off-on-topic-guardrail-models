@@ -99,6 +99,7 @@ GPU-accelerated models optimized with kernel fusion via `torch.compile` (benchma
 | **Ammu-1.0-OffOnTopic-Guardrail-nano** | 17M | FP8 E4M3 (Compiled) | **16.08 MB** | 5.37 ms | 722.5 q/s | 91.94 | 86.31 | 85.92 | **87.03** |
 
 For more details, refer to the [blog post](https://huggingface.co/blog/kalyan-ks/quantized-ammu-10-off-on-topic-guardrails-part2)
+
 ---
 
 ## 🚀 Quickstart
