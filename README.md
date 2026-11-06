@@ -65,16 +65,6 @@ Evaluated on the curated holdout benchmark test set of **4,008 balanced instance
 
 **Note**: \* — Tiny (32M) and Nano (17M) models are trained using knowledge distillation with `Ammu-1.0-OffOnTopic-Guardrail-base` as the teacher model.
 
-### **Quantized Models**
-
-Comparison of Pareto-optimal quantized models across the four Ammu 1.0 architectural tiers:
-
-| Model | Quantization Approach | Parameters | Disk Footprint | P50 Latency (CPU) | Throughput | Hard Macro-F1 (%) | Overall Macro-F1 (%) |
-|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| [Ammu-1.0-Base-150M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Base-150M-ONNX-INT8) | Dynamic INT8 + Selective Head FP32 | 150M | 256.0 MB | 95.81 ms | 7.5 q/s | 89.24 | **89.64** |
-| [Ammu-1.0-Tiny-32M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Tiny-32M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 32M | 90.3 MB | 31.50 ms | 35.9 q/s | 86.80 | 87.03 |
-| [Ammu-1.0-Nano-17M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Nano-17M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 17M | 55.0 MB | 11.88 ms | 88.7 q/s | 84.91 | 85.26 |
-
 ### Key Highlights
 - **Substantially Outperforms Frontier LLMs**: `Ammu-1.0-base` achieves **91.56%** Macro-F1, outperforming DeepSeek V4 Flash 0731 by **+9.61%** and GPT-6-luna by **+12.44%**.
 - **Superior Boundary Discrimination on Nuanced Queries**: The performance gap is widest on `Medium` (+14.83% over DeepSeek, +19.08% over GPT-6) and `Hard` (+8.88% over DeepSeek, +11.18% over GPT-6) queries.
@@ -83,6 +73,32 @@ Comparison of Pareto-optimal quantized models across the four Ammu 1.0 architect
 - **High Throughput & Sub-5ms Latency**: Delivers real-time CPU/GPU inference suitable for microservices, streaming gateways, and on-device deployment.
 - **MIT Licensed**: Permissive open-source license ready for enterprise commercial adoption.
 
+### **Quantized Models (INT8)**
+
+| Model | Quantization Approach | Parameters | Disk Footprint | P50 Latency (CPU) | Throughput | Hard Macro-F1 (%) | Overall Macro-F1 (%) |
+|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| [Ammu-1.0-Base-150M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Base-150M-ONNX-INT8) | Dynamic INT8 + Selective Head FP32 | 150M | 256.0 MB | 95.81 ms | 7.5 q/s | 89.24 | **89.64** |
+| [Ammu-1.0-Tiny-32M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Tiny-32M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 32M | 90.3 MB | 31.50 ms | 35.9 q/s | 86.80 | 87.03 |
+| [Ammu-1.0-Nano-17M-ONNX-INT8](https://huggingface.co/kalyan-ks/Ammu-1.0-Nano-17M-ONNX-INT8) | Dynamic INT8 + Sensitive Layers FP32 | 17M | 55.0 MB | 11.88 ms | 88.7 q/s | 84.91 | 85.26 |
+
+For more details, refer to the [blog post](https://huggingface.co/blog/kalyan-ks/quantized-ammu-10-off-on-topic-guardrail-models)
+
+### 🚀 High-Throughput GPU Models (FP16 & FP8 on NVIDIA L4)
+
+GPU-accelerated models optimized with kernel fusion via `torch.compile` (benchmarked on an NVIDIA Ada Lovelace L4 GPU with batch size = 32):
+
+| Model | Parameters | Precision / Method | Model Size | P50 Latency (batch=1) | Throughput (batch=32) | Easy F1 (%) | Medium F1 (%) | Hard F1 (%) | Overall Macro-F1 (%) |
+|:---|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Ammu-1.0-OffOnTopic-Guardrail-base** | 150M | FP16 (Compiled) | 285.35 MB | 8.42 ms | 182.4 q/s | 97.15 | 90.71 | 90.36 | **91.58** |
+| **Ammu-1.0-OffOnTopic-Guardrail-base** | 150M | FP8 E4M3 (Compiled) | **142.68 MB** | 12.09 ms | **213.7 q/s** | 96.99 | 90.71 | 90.35 | **91.55** |
+| **Ammu-1.0-OffOnTopic-Guardrail-small** | 68M | FP16 (Compiled) | 130.48 MB | 6.96 ms | 347.4 q/s | 96.37 | 88.93 | 89.44 | **90.35** |
+| **Ammu-1.0-OffOnTopic-Guardrail-small** | 68M | FP8 E4M3 (Compiled) | **65.24 MB** | 10.88 ms | **369.0 q/s** | 96.84 | 88.71 | 89.20 | **90.23** |
+| **Ammu-1.0-OffOnTopic-Guardrail-tiny** | 32M | FP16 (Compiled) | 61.10 MB | 4.82 ms | 586.1 q/s | 95.74 | 89.66 | 90.19 | **90.87** |
+| **Ammu-1.0-OffOnTopic-Guardrail-tiny** | 32M | FP8 E4M3 (Compiled) | **30.55 MB** | 7.09 ms | **571.6 q/s** | 95.11 | 89.80 | 90.75 | **91.08** |
+| **Ammu-1.0-OffOnTopic-Guardrail-nano** | 17M | FP16 (Compiled) | 32.17 MB | **3.80 ms** | **783.5 q/s** | 91.77 | 86.62 | 86.39 | **87.33** |
+| **Ammu-1.0-OffOnTopic-Guardrail-nano** | 17M | FP8 E4M3 (Compiled) | **16.08 MB** | 5.37 ms | 722.5 q/s | 91.94 | 86.31 | 85.92 | **87.03** |
+
+For more details, refer to the [blog post](https://huggingface.co/blog/kalyan-ks/quantized-ammu-10-off-on-topic-guardrails-part2)
 ---
 
 ## 🚀 Quickstart
